@@ -21,6 +21,9 @@ class MovieView(Resource):
         except ValidationError as e:
             return {'errors': e.normalized_messages()}, 400
 
+    def delete(self, uid):
+        return movies_service.delete(uid), 204
+
 
 @movies_ns.route('/')
 class MoviesView(Resource):
@@ -29,13 +32,13 @@ class MoviesView(Resource):
         args = request.args
 
         if 'director_id' in args:
-            return movies_service.get_by_director_id(args['director_id'])
+            return movies_service.get_by_director_id(args['director_id']), 200
 
         if 'genre_id' in args:
-            return movies_service.get_by_genre_id(args['genre_id'])
+            return movies_service.get_by_genre_id(args['genre_id']), 200
 
         if 'year' in args:
-            return movies_service.get_by_year(args['year'])
+            return movies_service.get_by_year(args['year']), 200
 
         return movies_service.get_all()
 
