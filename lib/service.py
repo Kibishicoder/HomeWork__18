@@ -24,4 +24,4 @@ class BaseService:
         self.dao.patch(uid, self.schema.load(data))
 
     def delete(self, uid: int):
-        pass
+        return self.schema.dump(self.dao.delete(uid))
